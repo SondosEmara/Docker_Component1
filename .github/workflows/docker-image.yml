@@ -1,0 +1,39 @@
+###########################################################
+# Rename the file extension to ".yaml" (remove "_") to enable
+###########################################################
+
+name: Component1 Build and Push To DockerHub
+
+on:
+  push:
+   branches: [ master ]
+  pull_request:
+    branches: [ master ]
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    
+    - name: Login to Docker Hub
+      uses: docker/login-action@v2
+      with:
+      
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+    
+    - name: Build and push Docker Image
+      uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+      with:
+          run: |
+           docker build -t sondos2002/component1  .
+          push: true
+          tags:  sondos2002/component1
+          
+        
+
+          
+          
+          
+   
+   
